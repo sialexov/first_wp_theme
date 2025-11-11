@@ -8,7 +8,7 @@ $artikul = get_field('artikul'); //Протое поле
 $price = (int)get_field('price'); //Простое поле
 $obem = get_field('obem'); // Простое поле
 $ingr = get_field('ingr'); // Объект записи. Возврат массив объектов
-$status = get_field('button'); // Чекбокс. Возврат значения
+$status = get_field('button')[0]; // Чекбокс. Возврат значения
 $tip_kozhi = get_field('tip_kozhi'); // Радио-кнопка. Возврат значения => массив объектов
 
 // Bring to array
@@ -16,7 +16,7 @@ $ingr = is_array($ingr) ? $ingr : array($ingr);
 $tip_kozhi = is_array($tip_kozhi) ? $tip_kozhi : array($tip_kozhi);
 ?>
 
-<?php
+<!-- <?php
     if ($img) : ?>
         <figure>
                 <img src="<?php echo $img['sizes']['medium'];?>">
@@ -30,17 +30,16 @@ $tip_kozhi = is_array($tip_kozhi) ? $tip_kozhi : array($tip_kozhi);
     </figure>
 <?php
     endif;
-?>
+?> -->
 
 <!-- Вывод картинки из записи -->
-<!-- <?php
+<?php
     if (have_posts()) :
         while (have_posts()) : the_post();
             the_post_thumbnail('medium');
-            echo "<br>Это картинка из записи";
         endwhile;
     endif;
-?> -->
+?>
 
 <br>
 <p>
@@ -59,8 +58,8 @@ endif;
 Объем: <?php echo $obem; ?>
 <br>
 В наличии:
-<?php 
-    if ($status == "в наличии") :
+<?php
+    if ($status == "В наличии") :
         echo "<span class='product-available'>$status</span>";
     else :
         echo "<span class='product-unavailable'>$status</span>";
@@ -90,7 +89,7 @@ endif;
 <?php
     foreach ($tip_kozhi as $tip) {
         if ($tip) :
-            echo "<li>" . $tip -> name;
+            echo "<li>" . $tip;
         else :
             echo "Тип кожи не указан";
         endif;

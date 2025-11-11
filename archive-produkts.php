@@ -1,5 +1,5 @@
 <?php
-
+// Открывается по ?post_type=produkts
 
 // Добавьте эту строку в самом начале для отладки
 echo '<!-- Загружен archive-produkts.php -->';
@@ -21,8 +21,8 @@ get_header();
         while (have_posts()) : the_post();
         ?>
         <div>
-            <h2><a href="<?php the_permalink()?>"><?php the_title();?></a></h2><br>
-            <?php the_post_thumbnail('medium')?><br>
+            <h3><a href="<?php the_permalink()?>"><?php the_title();?></a></h3><br>
+            <?php the_post_thumbnail([150, 150])?><br>
             <?php the_field('price'); ?> р<br>
             <?php the_field('artikul');?><br>
             <a href="<?php the_permalink()?>">Подробнее</a><br>
