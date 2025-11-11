@@ -1,4 +1,5 @@
 <head>
+    <!-- Коммент для GitHub -->
     <meta charset="UTF-8">
     <h1>This is the header</h1>
     <?php wp_head(); ?>
