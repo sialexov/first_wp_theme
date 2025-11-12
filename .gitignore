@@ -1,0 +1,30 @@
+# Файлы операционной системы Windows
+Thumbs.db
+Desktop.ini
+.DS_Store
+test.db
+
+# Служебные файлы редакторов кода
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Файлы WordPress, которые НЕЛЬЗЯ коммитить
+wp-config.php
+.env
+.env.local
+
+# Загруженные медиафайлы (если тема включает uploads)
+/wp-content/uploads/
+
+# Папка node_modules (если используете npm)
+node_modules/
+
+# Резервные копии
+*.backup
+*.bak
