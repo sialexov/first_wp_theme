@@ -18,23 +18,54 @@ get_header();
     
     <?php
     if (have_posts()) :
-        while (have_posts()) : the_post();
-        ?>
-        <div>
-            <h3><a href="<?php the_permalink()?>"><?php the_title();?></a></h3><br>
-            <?php the_post_thumbnail([150, 150])?><br>
-            <?php the_field('price'); ?> р<br>
-            <?php the_field('artikul');?><br>
-            <a href="<?php the_permalink()?>">Подробнее</a><br>
-        </div>
-        <hr>
+        $in_stock = [];
+        $out_stock = [];
 
-        <?php
+        while (have_posts()) : the_post();
+            $status = get_field('button');
+            $details = array(
+                'id' => get_the_id(),
+                'title' => get_the_title(),
+                'img' => get_the_post_thumbnail(get_the_ID(), 'thumbnail'),
+                'price' => get_field('price'),
+                'status' => $status
+            );
+
+            if ($status == "В наличии") :
+                    $in_stock[] = $details;
+            elseif ($status == "Нет в наличии") :
+                $out_stock[] = $details;
+            
+            endif;
         endwhile;
-    endif;
+    endif; 
         ?>
-    
-    
+<h2>Товары в наличии</h2><br>
+<?php 
+foreach ($in_stock as $detail => $unit) {
+    echo $unit['img'] ? "{$unit['img']}<br>" : "Изображение отсутствует<br>";
+    echo $unit['title'] . "<br>";
+    echo "Артикул: " . $unit['id'] . "<br>";
+    echo "Цена: " . $unit['price'] . "<br>";
+    echo "В наличии: ";
+    echo $unit['status'] == "В наличии" ? "Да" : "Нет";
+    echo "<br><hr>";
+}
+?>
+
+<h2>Товаров нет в наличии</h2><br>
+<?php 
+foreach ($out_stock as $detail => $unit) {
+    echo $unit['img'] . "<br>";
+    echo $unit['title'] . "<br>";
+    echo "Артикул: " . $unit['id'] . "<br>";
+    echo "Цена: " . $unit['price'] . "<br>";
+    echo "В наличии: ";
+    echo $unit['status'] == "В наличии" ? "Да" : "Нет";
+    echo "<br><hr>";
+}
+?>
+
 </main>
 
 <?php get_footer(); ?>

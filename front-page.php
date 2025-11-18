@@ -1,6 +1,9 @@
 <?php
     get_header();
 ?>
+
+<?php get_template_part('template-parts/post-meta');?>
+
 <br>
 <?php
     if (is_active_sidebar('sidebar1')) : ?>
