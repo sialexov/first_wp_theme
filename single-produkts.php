@@ -5,14 +5,14 @@
 
 $img = get_field('main_img'); // Картинка. Возврат массив
 $artikul = get_field('artikul'); //Протое поле
-$price = (int)get_field('price'); //Простое поле
+$price = (int)get_field('price');
 $obem = get_field('obem'); // Простое поле
-$ingr = get_field('ingr'); // Объект записи. Возврат массив объектов
+//$ingr = get_field('ingr'); // Объект записи. Возврат массив объектов
 $status = get_field('button')[0]; // Чекбокс. Возврат значения
 $tip_kozhi = get_field('tip_kozhi'); // Радио-кнопка. Возврат значения => массив объектов
 
 // Bring to array
-$ingr = is_array($ingr) ? $ingr : array($ingr);
+
 $tip_kozhi = is_array($tip_kozhi) ? $tip_kozhi : array($tip_kozhi);
 ?>
 
@@ -50,8 +50,7 @@ if (gettype($price) === 'integer') :
     echo "{$price}₽"; 
 else :
     echo "Цена по запросу";
-endif; 
-
+endif;
 
 ?>
 <br>
@@ -67,18 +66,12 @@ endif;
 ?>
 </p>
 Активные компоненты:
+
 <!-- Вывод в виде списка ссылок -->
 <ul>
 <?php
-    foreach ($ingr as $wp_post) {
-        ?>
-        <li>
-            <a href="<?php echo $wp_post -> guid?>" target="_blank">
-                <?php echo $wp_post -> post_title; ?>
-            </a>
-    <?php
-    }
-    wp_reset_postdata(); //Восстанавливает $post()
+get_template_part('template-parts/product-ingredients');
+
 ?>
 </ul>
 

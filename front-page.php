@@ -2,13 +2,13 @@
     get_header();
 ?>
 
-<?php get_template_part('template-parts/post-meta');?>
+<?php get_template_part('template-parts/product-ingredients');?>
 
 <br>
-<?php
+<!-- <?php
     if (is_active_sidebar('sidebar1')) : ?>
     <aside><?php dynamic_sidebar('sidebar1');?></aside>
-<?php endif; ?>
+<?php endif; ?> -->
 
 <h2>3 свежие записи:</h2><br>
 <?php
