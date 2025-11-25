@@ -17,6 +17,7 @@ get_header();
     ?>
     
     <?php
+    // Dividing goods by status
     if (have_posts()) :
         $in_stock = [];
         $out_stock = [];
@@ -40,6 +41,7 @@ get_header();
         endwhile;
     endif; 
         ?>
+        
 <h2>Товары в наличии</h2><br>
 <?php 
 foreach ($in_stock as $detail => $unit) {
