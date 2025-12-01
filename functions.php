@@ -8,12 +8,14 @@ add_action('after_setup_theme', 'bcmed_setup');
 // Menus registration
 function bcmed_menus() {
     register_nav_menus( array(
-        'bcmed_header_menu' => 'Меню в хедере',
-        'bcmed_footer_menu' => 'Меню в футере',
-        'bcmed_mobile_menu' => 'Мобильное меню'
+        'main_nav' => 'На главной',
+        'products_nav' => 'Для архивов',
+        'blog_nav' => 'Для блога'
     ));
 }
 add_action('after_setup_theme', 'bcmed_menus');
+
+
 
 // Widget registration
 function bcmed_widgets() {

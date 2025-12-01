@@ -4,17 +4,17 @@
     <h1>This is the header</h1>
     <?php wp_head(); ?>
 
-    <?php
+    <?php get_template_part('template-parts/header/main-navigation')?>
+
+    <!-- <?php
     if (is_front_page()) {
         wp_nav_menu( array(
-            'theme_location' => 'bcmed_header_menu',
-            'menu' => 'Хедер'
+            'theme_location' => 'main_nav'
         ));
     } else if (is_single()) {
         wp_nav_menu( array(
-            'theme_location' => 'bcmed_header_menu',
-            'menu' => 'Для постов'
+            'theme_location' => 'blog_nav'
         ));  
     }
-    ?>
+    ?> -->
 </head>

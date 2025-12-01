@@ -6,44 +6,67 @@
     display: inline-block;
     width: min-content;
     border: 1px gray solid;
-    padding-right: 5px;
+    border-radius: 8px;
+    background-color: beige;
+    padding: 5px;
+    margin: 10px;
+
 }
 </style>
 
+<?php
+    $location = 'main_nav';
+    $locations = get_nav_menu_locations();
+    $menu = wp_get_nav_menu_object($locations[$location]);
+    $menu_items = wp_get_nav_menu_items($menu->term_id);
 
-<?php get_template_part('template-parts/product-ingredients');?>
+    foreach ($menu_items as $item) {
+        echo "<div class=post1>$item->title</div>";
+    }
+?>
 
-<br>
-<!-- <?php
-    if (is_active_sidebar('sidebar1')) : ?>
-    <aside><?php dynamic_sidebar('sidebar1');?></aside>
-<?php endif; ?> -->
+<h2>4 последних продукта</h2>
+    <?php
+$product_querry = new WP_Query( array (
+    'post_type' => 'produkts',
+    'posts_per_page' => 3,
+    'order' =>'DESC'
+));
+//print_r($product_querry -> the_post());
+if ($product_querry -> have_posts()) :
+    while ($product_querry -> have_posts()) : $product_querry -> the_post();
+    ?>
+    <div style="display: inline-block; margin: 10px; border: beige 1px solid; background-color: beige; padding: 5px 10px; border-radius: 8px">
+        <?php
+        echo the_title() . "<br>";
+        echo the_post_thumbnail('medium');
+        ?>
+    </div>
+<?php
+    endwhile;
+    wp_reset_postdata();
+endif;
 
+?>
 <div class="posts_header">
+    
 <h2>3 свежие записи:</h2><br>
 </div>
 
 <?php
-$myposts = [];
-$i = 0;
-if (have_posts()) :
-    while (have_posts()) : the_post();
-        $myposts[$i] = [get_the_title(), get_the_permalink(), get_the_post_thumbnail(null, 'medium'), get_the_author()];
-        $i++;
-    endwhile;
-endif;
+    $myposts = get_posts( array(
+        'post_type' => 'post',
+    ));
 
-foreach ($myposts as $data) {
-    ?>
-    <a href="<?php echo $data[1]; ?>"><?php echo "{$data[0]}<br>"; ?></a>
-    <?php
-    echo $data[2] . "<br>";
-    echo $data[3] . "<br>";
-    echo "<hr width=200px align=left>";
-}
-wp_reset_postdata();
+    foreach ($myposts as $i) :
+        $id = $i -> ID;
+        echo $i -> post_title . "<br>";
+        echo get_the_post_thumbnail($id, 'medium') . "<br>";
+    endforeach;
+    //print_r($myposts);
 ?>
-<br>
+
+
 
 
 <!-- Products section -->
@@ -97,7 +120,4 @@ wp_reset_postdata();
     //     print_r($ingr);
     // echo "<pre>";
     wp_reset_postdata();
-
-
-
 ?>

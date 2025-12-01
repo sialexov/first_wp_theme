@@ -1,11 +1,12 @@
 <?php
-$rows = (int)explode(": ", readline())[1];
-$even = 1;
-$odd = 0;
+for ($k = 10; $k < 100; $k++) {
+    $d1 = intval($k / 10);
+    $d2 = intval($k % 10);
 
-for ($row = 1; $row <= $rows; $row++) {
-    $data = explode("-", readline());
-    $num = $data[0] - $data[1] - $data[2] - $data[3] - $data[4];//array_sum(array_slice($data, 2));
-    echo $num . "\n";
-}
+    $sum = $d1 + $d2;
+    $product = $d1 * $d2;
+        if ($sum + $product == $k) {
+            echo "$k\n";
+        }
+    }
 ?>
