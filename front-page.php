@@ -10,7 +10,14 @@
     background-color: beige;
     padding: 5px;
     margin: 10px;
-
+}
+.product-card {
+    display: inline-block; 
+    margin: 10px; 
+    border: beige 1px solid; 
+    background-color: #EDEDED; 
+    padding: 5px 10px; 
+    border-radius: 8px;
 }
 </style>
 
@@ -25,7 +32,7 @@
     }
 ?>
 
-<h2>4 последних продукта</h2>
+<h2>3 последних продукта</h2>
     <?php
 $product_querry = new WP_Query( array (
     'post_type' => 'produkts',
@@ -36,11 +43,14 @@ $product_querry = new WP_Query( array (
 if ($product_querry -> have_posts()) :
     while ($product_querry -> have_posts()) : $product_querry -> the_post();
     ?>
-    <div style="display: inline-block; margin: 10px; border: beige 1px solid; background-color: beige; padding: 5px 10px; border-radius: 8px">
+    <div class="product-card">
+        <!-- style="display:inline-block; background-color:antiquewhite" -->
+        <a href="<?php the_permalink()?>">
         <?php
         echo the_title() . "<br>";
         echo the_post_thumbnail('medium');
         ?>
+        </a>
     </div>
 <?php
     endwhile;
@@ -59,9 +69,15 @@ endif;
     ));
 
     foreach ($myposts as $i) :
+        ?>
+        <div class="product-card">
+        <?php
         $id = $i -> ID;
         echo $i -> post_title . "<br>";
         echo get_the_post_thumbnail($id, 'medium') . "<br>";
+        ?>
+        </div>
+        <?php
     endforeach;
     //print_r($myposts);
 ?>
@@ -115,9 +131,27 @@ endif;
     foreach ($ingr as $i) {
         echo $i -> post_title . "<br>";
     }
-
-    // echo "<pre>";
-    //     print_r($ingr);
-    // echo "<pre>";
     wp_reset_postdata();
 ?>
+<hr>
+<h3>Вам также может понравится</h3>
+<?php
+$random_products = new WP_Query( array (
+    'post_type' => 'produkts',
+    'posts_per_page' => '3',
+    'orderby' => 'rand'
+));
+
+if ($random_products -> have_posts()) :
+    while ($random_products -> have_posts()) : $random_products -> the_post();
+        ?>
+        <div class="product-card">
+            <?php
+                echo the_title() . "<br>";
+                echo the_post_thumbnail([100, 100]);
+            ?>
+        </div>
+        <?php
+    endwhile;
+    wp_reset_postdata();  
+endif;

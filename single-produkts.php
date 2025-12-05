@@ -86,8 +86,34 @@ get_template_part('template-parts/product-ingredients');
         else :
             echo "Тип кожи не указан";
         endif;
-}
-        
+}      
 ?>
 </ul>
+<hr>
+<h3>Рекомендумые товары</h3>
+<?php
+$term = wp_get_post_terms(get_the_ID(), 'product-line');
+
+$product_query = new WP_Query( array (
+    'post_type' => 'produkts',
+    'posts_per_page' => -1,
+    'tax_query' => array(
+        array(
+        'taxonomy' => 'product-line',
+        'field' => 'slug',
+        'terms' => $term[0]->slug
+        )
+    )
+));
+if ($product_query -> have_posts()) :
+    while ($product_query -> have_posts()) : $product_query -> the_post();
+        echo the_title() . "<br>";
+    endwhile;
+    wp_reset_postdata();
+endif;
+
+?>
+<pre>
+<?php print_r($term)?>
+</pre>
 <?php get_footer(); ?>
